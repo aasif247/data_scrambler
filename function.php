@@ -19,3 +19,21 @@ function scrambleData($orginalData, $key){
 
     return $data;
 }
+
+
+function decodeData($orginalData, $key){
+    $originalkey ='abcdefghijklmnopqrstuvwxyz1234567890';
+    $data = '';
+    $length = strlen($orginalData);
+    for ($i = 0; $i < $length; $i++){
+        $currentChar = $orginalData[$i];
+        $position = strpos($key,$currentChar);
+        if($position !== false){
+            $data .= $originalkey[$position];
+        }else{
+            $data .= $currentChar;
+        }
+    }
+
+    return $data;
+}
