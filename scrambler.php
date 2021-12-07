@@ -6,6 +6,7 @@ if(isset($_GET['task']) && $_GET['task']!=''){
     // $task = $_GET['task'] ?? 'encode' //for php 7;
 }
 
+$original_key ='abcdefghijklmnopqrstuvwxyz1234567890';
 $key ='abcdefghijklmnopqrstuvwxyz1234567890';
 if('key'== $task){
     $key_original = str_split($key);
@@ -13,6 +14,14 @@ if('key'== $task){
     $key = join('',$key_original);
 }else if(isset($_POST['key']) && $_POST['key'] !=''){
     $key = $_POST['key'];
+}
+
+$scrambleData ='';
+if('encode' == $task){
+    $data = $_POST['data'] ?? '';
+    if($data != ''){
+        $scrambleData = scrambleData($data,$key);
+    }
 }
 ?>
 
@@ -64,10 +73,9 @@ if('key'== $task){
                 <input type="text" name="key" id="key" <?php displayKey($key); ?> >
 
                 <label for="data">Data</label>
-                <textarea name="data" id="data"></textarea>
-
+                <textarea name="data" id="data"><?php if(isset($_POST['data'])){echo $_POST['data'];}?></textarea>
                 <label for="result">Result</label>
-                <textarea id="result"></textarea>
+                <textarea id="result"><?php echo $scrambleData; ?></textarea>
 
                 <button type='submit'>Scramble It</button>
             </form>
